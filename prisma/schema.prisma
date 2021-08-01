@@ -11,7 +11,64 @@ generator client {
 }
 
 model User {
+
   id    Int     @id @default(autoincrement())
-  email String?  @unique
+  email String? @unique
   name  String?
+
+  @@map(name: "users")
+}
+
+model Transaction {
+  id Int @id @default(autoincrement())
+
+  @@map(name: "transactions")
+}
+
+model NFT {
+  id Int @id @default(autoincrement())
+
+  @@map(name: "nfts")
+}
+
+model Auction {
+  id Int @id @default(autoincrement())
+
+  @@map(name: "auctions")
+}
+
+model Bid {
+  id Int @id @default(autoincrement())
+
+  @@map(name: "bids")
+}
+
+model Role {
+  id Int @id @default(autoincrement())
+
+  @@map(name: "roles")
+}
+
+model Profile {
+  id Int @id @default(autoincrement())
+
+  @@map(name: "profiles")
+}
+
+model Badge {
+  id Int @id @default(autoincrement())
+
+  @@map(name: "badges")
+}
+
+model Asset {
+  id Int @id @default(autoincrement())
+
+  @@map(name: "assets")
+}
+
+model Collection {
+
+  id Int @id @default(autoincrement())
+  @@map(name: "collections")
 }

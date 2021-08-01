@@ -15,8 +15,11 @@
 		"skipDefaultLibCheck": true,
 		"baseUrl": ".",
 		"paths": {
+			"@tradist/auth": ["libs/auth/src/index.ts"],
+			"@tradist/core": ["libs/core/src/index.ts"],
 			"@tradist/data": ["libs/data/src/index.ts"]
 		}
 	},
-	"exclude": ["node_modules", "tmp"]
+	"exclude": ["tmp"],
+	"include": ["./libs/*/src/**/*", "./apps/*/src/**/*"]
 }

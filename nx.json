@@ -27,7 +27,13 @@
 		]
 	},
 	"projects": {
+		"auth": {
+			"tags": []
+		},
 		"backend": {
+			"tags": []
+		},
+		"core": {
 			"tags": []
 		},
 		"data": {
