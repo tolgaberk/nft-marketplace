@@ -1,59 +1,208 @@
 {
-  "version": 2,
-  "projects": {
-    "backend": {
-      "root": "apps/backend",
-      "sourceRoot": "apps/backend/src",
-      "projectType": "application",
-      "targets": {
-        "build": {
-          "executor": "@nrwl/node:build",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/apps/backend",
-            "main": "apps/backend/src/main.ts",
-            "tsConfig": "apps/backend/tsconfig.app.json",
-            "assets": ["apps/backend/src/assets"]
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "apps/backend/src/environments/environment.ts",
-                  "with": "apps/backend/src/environments/environment.prod.ts"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "executor": "@nrwl/node:execute",
-          "options": {
-            "buildTarget": "backend:build"
-          }
-        },
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["apps/backend/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/backend"],
-          "options": {
-            "jestConfig": "apps/backend/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    }
-  },
-  "cli": {
-    "defaultCollection": "@nrwl/nest"
-  },
-  "defaultProject": "backend"
+	"version": 2,
+	"projects": {
+		"backend": {
+			"root": "apps/backend",
+			"sourceRoot": "apps/backend/src",
+			"projectType": "application",
+			"targets": {
+				"build": {
+					"executor": "@nrwl/node:build",
+					"outputs": [
+						"{options.outputPath}"
+					],
+					"options": {
+						"outputPath": "dist/apps/backend",
+						"main": "apps/backend/src/main.ts",
+						"tsConfig": "apps/backend/tsconfig.app.json",
+						"assets": [
+							"apps/backend/src/assets"
+						]
+					},
+					"configurations": {
+						"production": {
+							"optimization": true,
+							"extractLicenses": true,
+							"inspect": false,
+							"fileReplacements": [
+								{
+									"replace": "apps/backend/src/environments/environment.ts",
+									"with": "apps/backend/src/environments/environment.prod.ts"
+								}
+							]
+						}
+					}
+				},
+				"serve": {
+					"executor": "@nrwl/node:execute",
+					"options": {
+						"buildTarget": "backend:build"
+					}
+				},
+				"lint": {
+					"executor": "@nrwl/linter:eslint",
+					"options": {
+						"lintFilePatterns": [
+							"apps/backend/**/*.ts"
+						]
+					}
+				},
+				"test": {
+					"executor": "@nrwl/jest:jest",
+					"outputs": [
+						"coverage/apps/backend"
+					],
+					"options": {
+						"jestConfig": "apps/backend/jest.config.js",
+						"passWithNoTests": true
+					}
+				}
+			}
+		},
+		"data": {
+			"root": "libs/data",
+			"sourceRoot": "libs/data/src",
+			"projectType": "library",
+			"targets": {
+				"lint": {
+					"executor": "@nrwl/linter:eslint",
+					"options": {
+						"lintFilePatterns": [
+							"libs/data/**/*.ts"
+						]
+					}
+				},
+				"test": {
+					"executor": "@nrwl/jest:jest",
+					"outputs": [
+						"coverage/libs/data"
+					],
+					"options": {
+						"jestConfig": "libs/data/jest.config.js",
+						"passWithNoTests": true
+					}
+				},
+				"migrate-dev": {
+					"builder": "@nrwl/workspace:run-commands",
+					"outputs": [],
+					"options": {
+						"command": "npx prisma migrate dev --schema ../../prisma/schema.prisma",
+						"cwd": "libs/data"
+					}
+				},
+				"migrate-deploy": {
+					"builder": "@nrwl/workspace:run-commands",
+					"outputs": [],
+					"options": {
+						"command": "npx prisma migrate deploy --schema ../../prisma/schema.prisma",
+						"cwd": "libs/data"
+					}
+				},
+				"migrate-reset": {
+					"builder": "@nrwl/workspace:run-commands",
+					"outputs": [],
+					"options": {
+						"command": "npx prisma migrate reset --schema ../../prisma/schema.prisma",
+						"cwd": "libs/data"
+					}
+				},
+				"inspect-db": {
+					"builder": "@nrwl/workspace:run-commands",
+					"outputs": [],
+					"options": {
+						"command": "npx prisma studio --schema ../../prisma/schema.prisma",
+						"cwd": "libs/data"
+					}
+				}
+			}
+		},
+		"frontend": {
+			"projectType": "application",
+			"root": "apps/frontend",
+			"sourceRoot": "apps/frontend/src",
+			"targets": {
+				"build": {
+					"executor": "@nx-plus/vue:browser",
+					"options": {
+						"dest": "dist/apps/frontend",
+						"index": "apps/frontend/public/index.html",
+						"main": "apps/frontend/src/main.ts",
+						"tsConfig": "apps/frontend/tsconfig.app.json"
+					},
+					"configurations": {
+						"production": {
+							"mode": "production",
+							"filenameHashing": true,
+							"productionSourceMap": true,
+							"css": {
+								"extract": true,
+								"sourceMap": false
+							}
+						}
+					}
+				},
+				"serve": {
+					"executor": "@nx-plus/vue:dev-server",
+					"options": {
+						"browserTarget": "frontend:build"
+					},
+					"configurations": {
+						"production": {
+							"browserTarget": "frontend:build:production"
+						}
+					}
+				},
+				"lint": {
+					"executor": "@nrwl/linter:eslint",
+					"options": {
+						"lintFilePatterns": [
+							"apps/frontend/**/*.{ts,tsx,vue}"
+						]
+					}
+				},
+				"test": {
+					"executor": "@nrwl/jest:jest",
+					"outputs": [
+						"coverage/apps/frontend"
+					],
+					"options": {
+						"jestConfig": "apps/frontend/jest.config.js",
+						"passWithNoTests": true
+					}
+				}
+			}
+		},
+		"frontend-e2e": {
+			"root": "apps/frontend-e2e",
+			"sourceRoot": "apps/frontend-e2e/src",
+			"projectType": "application",
+			"targets": {
+				"e2e": {
+					"executor": "@nrwl/cypress:cypress",
+					"options": {
+						"cypressConfig": "apps/frontend-e2e/cypress.json",
+						"tsConfig": "apps/frontend-e2e/tsconfig.e2e.json",
+						"devServerTarget": "frontend:serve"
+					},
+					"configurations": {
+						"production": {
+							"devServerTarget": "frontend:serve:production"
+						}
+					}
+				},
+				"lint": {
+					"executor": "@nrwl/linter:eslint",
+					"options": {
+						"lintFilePatterns": [
+							"apps/frontend-e2e/**/*.{js,ts}"
+						]
+					}
+				}
+			}
+		}
+	},
+	"cli": {
+		"defaultCollection": "@nrwl/nest"
+	},
+	"defaultProject": "backend"
 }
