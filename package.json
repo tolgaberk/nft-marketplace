@@ -46,6 +46,8 @@
 		"vue-router": "^4.0.0-0"
 	},
 	"devDependencies": {
+		"@commitlint/cli": "^13.1.0",
+		"@commitlint/config-conventional": "^13.1.0",
 		"@nestjs/schematics": "^7.0.0",
 		"@nestjs/testing": "^7.0.0",
 		"@nrwl/cli": "12.6.3",
