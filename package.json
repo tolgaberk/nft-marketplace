@@ -39,6 +39,7 @@
 		"core-js": "^3.6.5",
 		"graphql": "^15.5.1",
 		"joi": "^17.4.1",
+		"modern-normalize": "^1.1.0",
 		"reflect-metadata": "^0.1.13",
 		"rxjs": "~6.6.3",
 		"tslib": "^2.0.0",

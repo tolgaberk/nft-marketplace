@@ -1,0 +1,16 @@
+@import './fonts.css';
+@import './variables.css';
+
+body {
+	background-color: #1d1e22;
+	min-height: 100vh;
+	min-width: 100vw;
+	overflow: hidden;
+}
+#app {
+	font-family: Gilroy, Avenir, Helvetica, Arial, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-align: center;
+	color: #2c3e50;
+}

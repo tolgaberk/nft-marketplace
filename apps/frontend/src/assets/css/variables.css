@@ -1,0 +1,11 @@
+body {
+	--primary-color: #cbff17;
+	--primary-color-hover: #384316;
+	--black: #1d1e22;
+	--white: #ffffff;
+}
+
+body[data-theme='light'] {
+	--primary-color: #6236ff;
+	--primary-color-hover: #3a2487;
+}
