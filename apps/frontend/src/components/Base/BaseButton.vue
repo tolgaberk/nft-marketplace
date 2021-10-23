@@ -7,8 +7,6 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
 
-// TODO: Shadow Stacking context, 192px ve 150pxlik butonlar
-
 export default defineComponent({
 	props: {
 		size: {
@@ -26,7 +24,7 @@ export default defineComponent({
 			type: String,
 			default: 'transparent',
 			validator: (val: string) => {
-				return val in ['transparent', 'primary'];
+				return ['transparent', 'primary'].includes(val);
 			},
 		},
 		textColor: {
@@ -51,7 +49,7 @@ export default defineComponent({
 			type: String,
 			default: 'black',
 			validator: (val: string) => {
-				return val in ['transparent', 'primary'];
+				return ['transparent', 'primary', 'black'].includes(val);
 			},
 		},
 	},
@@ -74,15 +72,16 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 button {
 	height: 42px;
-	background: var(--black);
+	background: var(--clr-dark);
 	color: white;
-	border: 1px solid var(--primary-color);
+	border: 1px solid var(--clr-primary);
 	transition: background-color 0.3s ease-out;
+	font-weight: 500;
 	&:hover {
-		background-color: var(--primary-color-hover);
+		background-color: var(--clr-primary-dark);
 	}
 }
 
@@ -161,7 +160,7 @@ button {
 		width: 100%;
 		height: 100%;
 		z-index: -1;
-		border: 1px solid var(--primary-color);
+		border: 1px solid var(--clr-primary);
 	}
 
 	&-transparent {
@@ -172,32 +171,36 @@ button {
 
 	&-primary {
 		&::after {
-			background-color: var(--primary-color);
+			background-color: var(--clr-primary);
 		}
 	}
 }
 
 .text {
 	&-white {
-		color: var(--white);
+		color: var(--clr-white);
 	}
 
 	&-black {
-		color: var(--black);
+		color: var(--clr-dark);
 	}
 
 	&-primary {
-		color: var(--primary-color);
+		color: var(--clr-primary);
 	}
 }
 
 .bg {
-	&-transpatern {
+	&-transparent {
 		background-color: transparent;
 	}
 
 	&-primary {
-		background-color: var(--primary-color);
+		background-color: var(--clr-primary);
+	}
+
+	&-black {
+		background-color: var(--clr-dark);
 	}
 }
 </style>

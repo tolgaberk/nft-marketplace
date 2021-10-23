@@ -14,13 +14,11 @@
 		<BaseButton size="xl" fontSize="lg" :shadow="true" :fontWeight="500"
 			>Place a Bid</BaseButton
 		>
-		<BaseButton :fontWeight="600">Login</BaseButton>
+		<BaseButton class="font-semibold">Login</BaseButton>
 		<BaseButton size="sm" fontSize="sm" :shadow="true" :fontWeight="500"
 			>More</BaseButton
 		>
-		<BaseButton size="xs" fontSize="sm" textColor="primary" :fontWeight="500">
-			&#x2192;
-		</BaseButton>
+		<NewsletterButton />
 	</div>
 </template>
 
@@ -28,10 +26,12 @@
 import { defineComponent } from 'vue';
 
 import BaseButton from '../components/Base/BaseButton.vue';
+import NewsletterButton from '../components/Buttons/NewsletterButton.vue';
 
 export default defineComponent({
 	components: {
 		BaseButton,
+		NewsletterButton,
 	},
 	setup() {
 		return {};
