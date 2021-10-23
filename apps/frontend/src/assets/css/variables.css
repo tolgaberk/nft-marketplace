@@ -1,11 +1,19 @@
 body {
-	--primary-color: #cbff17;
-	--primary-color-hover: #384316;
-	--black: #1d1e22;
-	--white: #ffffff;
+	--clr-primary: #6236ff;
+	--clr-primary-dark: #3a2487;
+	--clr-danger: #e74c3c;
+	--clr-link: #3772ff;
+
+	--clr-white: #ffffff;
+	--clr-light: #f2f5fa;
+	--clr-dark: #1d1e22;
+	--clr-darker: #121215;
+
+	--clr-gs-white: #ffffff;
+	--clr-gs-white: #ffffff;
 }
 
-body[data-theme='light'] {
-	--primary-color: #6236ff;
-	--primary-color-hover: #3a2487;
+body.dark {
+	--clr-primary: #cbff17;
+	--clr-primary-dark: #384316;
 }
