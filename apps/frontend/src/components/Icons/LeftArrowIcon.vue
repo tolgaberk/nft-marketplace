@@ -11,6 +11,7 @@
 		<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
 			<g
 				transform="translate(-1230.000000, -3807.000000)"
+				class="c1-primary"
 				fill="#CAFF15"
 				fill-rule="nonzero"
 			>

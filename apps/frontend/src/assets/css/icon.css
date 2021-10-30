@@ -1,0 +1,12 @@
+.c1-primary {
+  fill: var(--clr-primary);
+}
+.c2-secondary {
+  fill: #1d1e22;
+}
+
+.dark {
+  .c2-secondary {
+    fill: #777E91;
+  }
+}
