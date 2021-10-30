@@ -11,221 +11,234 @@ generator client {
 }
 
 model User {
-  id                   Int             @id @default(autoincrement())
-  email                String?         @unique
-  name                 String?
-  password             String
-  isVerified           Boolean         @default(false)
-  verificationDate     DateTime
-  role                 Role            @relation(fields: [role_id], references: [id])
-  role_id              Int             @default(1)
-  wallet_address       String
-  profile              Profile?
-  followedBy           User[]          @relation("UserFollows", references: [id])
-  following            User[]          @relation("UserFollows", references: [id])
-  erc721Tokens         ERC721[]        @relation("erc721owner")
-  cretedErc721Tokens   ERC721[]        @relation("erc721creator")
-  createdErc1155Tokens ERC1155[]       @relation("erc1155creator")
-  BadgesOnUsers        BadgesOnUsers[]
-  erc1155Tokens        ERC1155Owner[]
-  auctions             Auction[]       @relation("auction_owner")
-  wonAuctions          Auction[]       @relation("auction_winner")
-  bids                 Bid[]
-  UserFavTokens        UserFavTokens[]
-  receivedTransactions Transaction[]   @relation("transactionReceiver")
-  sentTransactions     Transaction[]   @relation("transactionSender")
-
-  @@map(name: "users")
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  password String
 }
 
-model Role {
+model Hero {
   id          Int    @id @default(autoincrement())
-  name        String
+  title       String
   description String
-  User        User[]
-
-  @@map(name: "roles")
 }
 
-model Profile {
-  id         Int    @id @default(autoincrement())
-  bio        String
-  coverImg   String
-  username   String
-  profileImg String
-  user       User   @relation(fields: [userId], references: [id])
-  userId     Int
+//// OLD ////
+// model User {
+//   id                   Int             @id @default(autoincrement())
+//   email                String?         @unique
+//   name                 String?
+//   password             String
+//   isVerified           Boolean         @default(false)
+//   verificationDate     DateTime
+//   role                 Role            @relation(fields: [role_id], references: [id])
+//   role_id              Int             @default(1)
+//   wallet_address       String
+//   profile              Profile?
+//   followedBy           User[]          @relation("UserFollows", references: [id])
+//   following            User[]          @relation("UserFollows", references: [id])
+//   erc721Tokens         ERC721[]        @relation("erc721owner")
+//   cretedErc721Tokens   ERC721[]        @relation("erc721creator")
+//   createdErc1155Tokens ERC1155[]       @relation("erc1155creator")
+//   BadgesOnUsers        BadgesOnUsers[]
+//   erc1155Tokens        ERC1155Owner[]
+//   auctions             Auction[]       @relation("auction_owner")
+//   wonAuctions          Auction[]       @relation("auction_winner")
+//   bids                 Bid[]
+//   UserFavTokens        UserFavTokens[]
+//   receivedTransactions Transaction[]   @relation("transactionReceiver")
+//   sentTransactions     Transaction[]   @relation("transactionSender")
 
-  @@map(name: "profiles")
-}
+//   @@map(name: "users")
+// }
 
-model Badge {
-  id            Int             @id @default(autoincrement())
-  name          String
-  description   String
-  condition     String
-  image         String
-  BadgesOnUsers BadgesOnUsers[]
+// model Role {
+//   id          Int    @id @default(autoincrement())
+//   name        String
+//   description String
+//   User        User[]
 
-  @@map(name: "badges")
-}
+//   @@map(name: "roles")
+// }
 
-model BadgesOnUsers {
-  user        User     @relation(fields: [userId], references: [id])
-  userId      Int
-  badge       Badge    @relation(fields: [badgeId], references: [id])
-  badgeId     Int
-  acquireDate DateTime @default(now())
+// model Profile {
+//   id         Int    @id @default(autoincrement())
+//   bio        String
+//   coverImg   String
+//   username   String
+//   profileImg String
+//   user       User   @relation(fields: [userId], references: [id])
+//   userId     Int
 
-  @@id([userId, badgeId])
-  @@map("badges_users")
-}
+//   @@map(name: "profiles")
+// }
 
-model ERC721 {
-  id              Int          @id @default(autoincrement())
-  tokenId         Int
-  name            String
-  contractAddress String
-  blockHash       String
-  txHash          String
-  description     String
-  stats           String
-  createdAt       DateTime     @default(now())
-  asset           ERC721Asset?
-  createdBy       User         @relation("erc721creator", fields: [creatorId], references: [id])
-  creatorId       Int
-  owner           User         @relation("erc721owner", fields: [ownerId], references: [id])
-  ownerId         Int
-  price           Float
+// model Badge {
+//   id            Int             @id @default(autoincrement())
+//   name          String
+//   description   String
+//   condition     String
+//   image         String
+//   BadgesOnUsers BadgesOnUsers[]
 
-  @@map("erc721")
-}
+//   @@map(name: "badges")
+// }
 
-model ERC721Asset {
-  id        Int      @id @default(autoincrement())
-  token     ERC721   @relation(fields: [tokenId], references: [id])
-  tokenId   Int
-  file_path String
-  ipfs_cid  String
-  type      NFT_TYPE
+// model BadgesOnUsers {
+//   user        User     @relation(fields: [userId], references: [id])
+//   userId      Int
+//   badge       Badge    @relation(fields: [badgeId], references: [id])
+//   badgeId     Int
+//   acquireDate DateTime @default(now())
 
-  @@map("erc721_assets")
-}
+//   @@id([userId, badgeId])
+//   @@map("badges_users")
+// }
 
-model ERC1155 {
-  id           Int            @id @default(autoincrement())
-  tokenId      Int
-  blockHash    String
-  txHash       String
-  createdAt    DateTime       @default(now())
-  createdBy    User           @relation("erc1155creator", fields: [creatorId], references: [id])
-  creatorId    Int
-  description  String
-  name         String
-  collectionId Int?
-  totalAmount  Int
-  asset        ERC1155Asset?
-  owners       ERC1155Owner[]
+// model ERC721 {
+//   id              Int          @id @default(autoincrement())
+//   tokenId         Int
+//   name            String
+//   contractAddress String
+//   blockHash       String
+//   txHash          String
+//   description     String
+//   stats           String
+//   createdAt       DateTime     @default(now())
+//   asset           ERC721Asset?
+//   createdBy       User         @relation("erc721creator", fields: [creatorId], references: [id])
+//   creatorId       Int
+//   owner           User         @relation("erc721owner", fields: [ownerId], references: [id])
+//   ownerId         Int
+//   price           Float
 
-  @@map("erc1155")
-}
+//   @@map("erc721")
+// }
 
-model ERC1155Asset {
-  id        Int      @id @default(autoincrement())
-  token     ERC1155  @relation(fields: [tokenId], references: [id])
-  tokenId   Int
-  file_path String
-  ipfs_cid  String
-  type      NFT_TYPE
+// model ERC721Asset {
+//   id        Int      @id @default(autoincrement())
+//   token     ERC721   @relation(fields: [tokenId], references: [id])
+//   tokenId   Int
+//   file_path String
+//   ipfs_cid  String
+//   type      NFT_TYPE
 
-  @@map("erc1155_assets")
-}
+//   @@map("erc721_assets")
+// }
 
-model ERC1155Owner {
-  token   ERC1155 @relation(fields: [tokenId], references: [id])
-  tokenId Int
+// model ERC1155 {
+//   id           Int            @id @default(autoincrement())
+//   tokenId      Int
+//   blockHash    String
+//   txHash       String
+//   createdAt    DateTime       @default(now())
+//   createdBy    User           @relation("erc1155creator", fields: [creatorId], references: [id])
+//   creatorId    Int
+//   description  String
+//   name         String
+//   collectionId Int?
+//   totalAmount  Int
+//   asset        ERC1155Asset?
+//   owners       ERC1155Owner[]
 
-  owner   User @relation(fields: [ownerId], references: [id])
-  ownerId Int
+//   @@map("erc1155")
+// }
 
-  amount Int @default(1)
+// model ERC1155Asset {
+//   id        Int      @id @default(autoincrement())
+//   token     ERC1155  @relation(fields: [tokenId], references: [id])
+//   tokenId   Int
+//   file_path String
+//   ipfs_cid  String
+//   type      NFT_TYPE
 
-  @@id([tokenId, ownerId])
-  @@map("erc1155_owners")
-}
+//   @@map("erc1155_assets")
+// }
 
-model Token {
-  id            Int             @id @default(autoincrement())
-  tokenId       Int
-  type          TOKEN_TYPE
-  auctions      Auction[]
-  UserFavTokens UserFavTokens[]
+// model ERC1155Owner {
+//   token   ERC1155 @relation(fields: [tokenId], references: [id])
+//   tokenId Int
 
-  @@map("tokens")
-  Transaction Transaction[]
-}
+//   owner   User @relation(fields: [ownerId], references: [id])
+//   ownerId Int
 
-model UserFavTokens {
-  user    User     @relation(fields: [userId], references: [id])
-  userId  Int
-  token   Token    @relation(fields: [tokenId], references: [id])
-  tokenId Int
-  favDate DateTime @default(now())
+//   amount Int @default(1)
 
-  @@id([userId, tokenId])
-  @@map("user_fav_tokens")
-}
+//   @@id([tokenId, ownerId])
+//   @@map("erc1155_owners")
+// }
 
-model Auction {
-  id         Int      @id @default(autoincrement())
-  token      Token    @relation(fields: [tokenId], references: [id])
-  tokenId    Int
-  start_date DateTime
-  end_date   DateTime
-  winner     User?    @relation("auction_winner", fields: [winnerId], references: [id])
-  winnerId   Int
-  owner      User     @relation("auction_owner", fields: [ownerId], references: [id])
-  ownerId    Int
-  bids       Bid[]
+// model Token {
+//   id            Int             @id @default(autoincrement())
+//   tokenId       Int
+//   type          TOKEN_TYPE
+//   auctions      Auction[]
+//   UserFavTokens UserFavTokens[]
 
-  @@map("auctions")
-}
+//   @@map("tokens")
+//   Transaction Transaction[]
+// }
 
-model Bid {
-  id        Int     @id @default(autoincrement())
-  auction   Auction @relation(fields: [auctionId], references: [id])
-  auctionId Int
-  bidder    User    @relation(fields: [bidderId], references: [id])
-  bidderId  Int
-  amount    Float
+// model UserFavTokens {
+//   user    User     @relation(fields: [userId], references: [id])
+//   userId  Int
+//   token   Token    @relation(fields: [tokenId], references: [id])
+//   tokenId Int
+//   favDate DateTime @default(now())
 
-  @@map("bids")
-}
+//   @@id([userId, tokenId])
+//   @@map("user_fav_tokens")
+// }
 
-model Transaction {
+// model Auction {
+//   id         Int      @id @default(autoincrement())
+//   token      Token    @relation(fields: [tokenId], references: [id])
+//   tokenId    Int
+//   start_date DateTime
+//   end_date   DateTime
+//   winner     User?    @relation("auction_winner", fields: [winnerId], references: [id])
+//   winnerId   Int
+//   owner      User     @relation("auction_owner", fields: [ownerId], references: [id])
+//   ownerId    Int
+//   bids       Bid[]
 
-  receiver   User @relation("transactionReceiver", fields: [receiverId], references: [id])
-  receiverId Int
+//   @@map("auctions")
+// }
 
-  sender   User @relation("transactionSender", fields: [senderId], references: [id])
-  senderId Int
+// model Bid {
+//   id        Int     @id @default(autoincrement())
+//   auction   Auction @relation(fields: [auctionId], references: [id])
+//   auctionId Int
+//   bidder    User    @relation(fields: [bidderId], references: [id])
+//   bidderId  Int
+//   amount    Float
 
-  token   Token @relation(fields: [tokenId], references: [id])
-  tokenId Int
+//   @@map("bids")
+// }
 
-  amount Int
-  @@id([receiverId, senderId])
-  @@map("transactions")
-}
+// model Transaction {
 
-enum TOKEN_TYPE {
-  ERC_721
-  ERC_1155
-}
+//   receiver   User @relation("transactionReceiver", fields: [receiverId], references: [id])
+//   receiverId Int
 
-enum NFT_TYPE {
-  video
-  image
-  svg
-  gif
-}
+//   sender   User @relation("transactionSender", fields: [senderId], references: [id])
+//   senderId Int
+
+//   token   Token @relation(fields: [tokenId], references: [id])
+//   tokenId Int
+
+//   amount Int
+//   @@id([receiverId, senderId])
+//   @@map("transactions")
+// }
+
+// enum TOKEN_TYPE {
+//   ERC_721
+//   ERC_1155
+// }
+
+// enum NFT_TYPE {
+//   video
+//   image
+//   svg
+//   gif
+// }
