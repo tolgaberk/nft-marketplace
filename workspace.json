@@ -10,7 +10,8 @@
 					"executor": "@nrwl/linter:eslint",
 					"options": {
 						"lintFilePatterns": ["libs/auth/**/*.ts"]
-					}
+					},
+					"outputs": ["{options.outputFile}"]
 				},
 				"test": {
 					"executor": "@nrwl/jest:jest",
@@ -20,7 +21,8 @@
 						"passWithNoTests": true
 					}
 				}
-			}
+			},
+			"tags": []
 		},
 		"backend": {
 			"root": "apps/backend",
@@ -60,7 +62,8 @@
 					"executor": "@nrwl/linter:eslint",
 					"options": {
 						"lintFilePatterns": ["apps/backend/**/*.ts"]
-					}
+					},
+					"outputs": ["{options.outputFile}"]
 				},
 				"test": {
 					"executor": "@nrwl/jest:jest",
@@ -70,7 +73,8 @@
 						"passWithNoTests": true
 					}
 				}
-			}
+			},
+			"tags": []
 		},
 		"core": {
 			"root": "libs/core",
@@ -81,7 +85,8 @@
 					"executor": "@nrwl/linter:eslint",
 					"options": {
 						"lintFilePatterns": ["libs/core/**/*.ts"]
-					}
+					},
+					"outputs": ["{options.outputFile}"]
 				},
 				"test": {
 					"executor": "@nrwl/jest:jest",
@@ -91,7 +96,8 @@
 						"passWithNoTests": true
 					}
 				}
-			}
+			},
+			"tags": []
 		},
 		"data": {
 			"root": "libs/data",
@@ -102,7 +108,8 @@
 					"executor": "@nrwl/linter:eslint",
 					"options": {
 						"lintFilePatterns": ["libs/data/**/*.ts"]
-					}
+					},
+					"outputs": ["{options.outputFile}"]
 				},
 				"test": {
 					"executor": "@nrwl/jest:jest",
@@ -144,7 +151,8 @@
 						"cwd": "libs/data"
 					}
 				}
-			}
+			},
+			"tags": []
 		},
 		"frontend": {
 			"projectType": "application",
@@ -186,7 +194,8 @@
 					"executor": "@nrwl/linter:eslint",
 					"options": {
 						"lintFilePatterns": ["apps/frontend/**/*.{ts,tsx,vue}"]
-					}
+					},
+					"outputs": ["{options.outputFile}"]
 				},
 				"test": {
 					"executor": "@nrwl/jest:jest",
@@ -196,7 +205,8 @@
 						"passWithNoTests": true
 					}
 				}
-			}
+			},
+			"tags": []
 		},
 		"frontend-e2e": {
 			"root": "apps/frontend-e2e",
@@ -220,13 +230,12 @@
 					"executor": "@nrwl/linter:eslint",
 					"options": {
 						"lintFilePatterns": ["apps/frontend-e2e/**/*.{js,ts}"]
-					}
+					},
+					"outputs": ["{options.outputFile}"]
 				}
-			}
+			},
+			"tags": [],
+			"implicitDependencies": ["frontend"]
 		}
-	},
-	"cli": {
-		"defaultCollection": "@nrwl/nest"
-	},
-	"defaultProject": "backend"
+	}
 }

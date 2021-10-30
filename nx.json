@@ -26,25 +26,8 @@
 			}
 		]
 	},
-	"projects": {
-		"auth": {
-			"tags": []
-		},
-		"backend": {
-			"tags": []
-		},
-		"core": {
-			"tags": []
-		},
-		"data": {
-			"tags": []
-		},
-		"frontend": {
-			"tags": []
-		},
-		"frontend-e2e": {
-			"tags": [],
-			"implicitDependencies": ["frontend"]
-		}
-	}
+	"cli": {
+		"defaultCollection": "@nrwl/nest"
+	},
+	"defaultProject": "backend"
 }
