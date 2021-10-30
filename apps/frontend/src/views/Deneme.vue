@@ -20,18 +20,44 @@
 		>
 		<NewsletterButton />
 	</div>
+
+	<div class="mt-16 p-4">
+		<BaseBanner primaryText="75,088" secondaryText="NFTS CREATED">
+			<template #icon>
+				<BrushIcon />
+			</template>
+		</BaseBanner>
+		<BaseBanner primaryText="6,736" secondaryText="TRANSACTIONS">
+			<template #icon>
+				<TransactionIcon />
+			</template>
+		</BaseBanner>
+		<BaseBanner primaryText="$78,428.76" secondaryText="TOTAL SALES">
+			<template #icon>
+				<PriceUpIcon />
+			</template>
+		</BaseBanner>
+	</div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import BaseBanner from '../components/Base/BaseBanner.vue';
+import BrushIcon from '../components/Icons/BrushIcon.vue'
 
 import BaseButton from '../components/Base/BaseButton.vue';
 import NewsletterButton from '../components/Buttons/NewsletterButton.vue';
+import TransactionIcon from '../components/Icons/TransactionIcon.vue';
+import PriceUpIcon from '../components/Icons/PriceUpIcon.vue';
 
 export default defineComponent({
 	components: {
 		BaseButton,
+		BrushIcon,
 		NewsletterButton,
+		BaseBanner,
+		TransactionIcon,
+		PriceUpIcon,
 	},
 	setup() {
 		return {};
