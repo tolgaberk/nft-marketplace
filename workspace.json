@@ -154,6 +154,29 @@
 			},
 			"tags": []
 		},
+		"error-codes": {
+			"root": "libs/error-codes",
+			"sourceRoot": "libs/error-codes/src",
+			"projectType": "library",
+			"targets": {
+				"lint": {
+					"executor": "@nrwl/linter:eslint",
+					"outputs": ["{options.outputFile}"],
+					"options": {
+						"lintFilePatterns": ["libs/error-codes/**/*.ts"]
+					}
+				},
+				"test": {
+					"executor": "@nrwl/jest:jest",
+					"outputs": ["coverage/libs/error-codes"],
+					"options": {
+						"jestConfig": "libs/error-codes/jest.config.js",
+						"passWithNoTests": true
+					}
+				}
+			},
+			"tags": []
+		},
 		"frontend": {
 			"projectType": "application",
 			"root": "apps/frontend",

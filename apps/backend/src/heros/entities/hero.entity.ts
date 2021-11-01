@@ -1,7 +1,9 @@
-import { Hero as IHero} from ".prisma/client";
+import { Hero as IHero } from '.prisma/client';
 
 export class Hero implements IHero {
-    id: number;
-    title: string;
-    description: string;
+	createdAt: Date;
+	updatedAt: Date;
+	id: number;
+	title: string;
+	description: string;
 }

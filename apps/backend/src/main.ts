@@ -20,9 +20,6 @@ async function bootstrap() {
 
 	await app.listen(port, () => {
 		Logger.log('Listening at http://localhost:' + port + '/' + globalPrefix);
-		Logger.log(
-			'Listening at http://localhost:' + port + '/graphql for GraphQL',
-		);
 		Logger.log(`Running in ${config.get('environment')} mode`);
 	});
 }

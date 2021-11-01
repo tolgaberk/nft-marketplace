@@ -14,12 +14,62 @@ model User {
   id       Int    @id @default(autoincrement())
   email    String @unique
   password String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  bids    Bid[]
+  wallets Wallet[]
+  roles   UserRole[]
+}
+
+model UserRole {
+  id          Int    @id @default(autoincrement())
+  name        String
+  description String
+  users       User[]
 }
 
 model Hero {
   id          Int    @id @default(autoincrement())
   title       String
   description String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Bid {
+  id        Int     @id @default(autoincrement())
+  bidder    User    @relation(fields: [bidderId], references: id)
+  bidderId  Int
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
+  price     Decimal
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Product {
+  id               Int       @id @default(autoincrement())
+  auctionStartedAt DateTime?
+  auctionEndAt     DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Bid Bid[]
+}
+
+model Wallet {
+  id     Int    @id @default(autoincrement())
+  hash   String @unique
+  user   User   @relation(fields: [userId], references: [id])
+  userId Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 //// OLD ////
@@ -49,15 +99,6 @@ model Hero {
 //   sentTransactions     Transaction[]   @relation("transactionSender")
 
 //   @@map(name: "users")
-// }
-
-// model Role {
-//   id          Int    @id @default(autoincrement())
-//   name        String
-//   description String
-//   User        User[]
-
-//   @@map(name: "roles")
 // }
 
 // model Profile {

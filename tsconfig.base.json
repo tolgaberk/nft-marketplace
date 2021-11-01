@@ -17,7 +17,8 @@
 		"paths": {
 			"@tradist/auth": ["libs/auth/src/index.ts"],
 			"@tradist/core": ["libs/core/src/index.ts"],
-			"@tradist/data": ["libs/data/src/index.ts"]
+			"@tradist/data": ["libs/data/src/index.ts"],
+			"@tradist/error-codes": ["libs/error-codes/src/index.ts"]
 		}
 	},
 	"exclude": ["tmp"],
