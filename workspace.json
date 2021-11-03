@@ -72,6 +72,9 @@
 						"jestConfig": "apps/backend/jest.config.js",
 						"passWithNoTests": true
 					}
+				},
+				"version": {
+					"executor": "@jscutlery/semver:version"
 				}
 			},
 			"tags": []
@@ -227,6 +230,9 @@
 						"jestConfig": "apps/frontend/jest.config.js",
 						"passWithNoTests": true
 					}
+				},
+				"version": {
+					"executor": "@jscutlery/semver:version"
 				}
 			},
 			"tags": []
