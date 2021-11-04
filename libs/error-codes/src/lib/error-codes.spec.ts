@@ -1,7 +1,7 @@
-import { errorCodes } from './error-codes';
+import { ErrorCodes } from './error-codes';
 
 describe('errorCodes', () => {
 	it('should work', () => {
-		expect(errorCodes()).toEqual('error-codes');
+		expect(ErrorCodes).toEqual(ErrorCodes);
 	});
 });
