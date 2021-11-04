@@ -9,11 +9,15 @@ import { computed, defineComponent } from 'vue';
 
 export default defineComponent({
 	props: {
+		isText: {
+			type: Boolean,
+			default: false,
+		},
 		size: {
 			type: String,
 			default: 'md',
 			validator: (val: string) => {
-				return ['xs', 'sm', 'md', 'lg', 'xl'].includes(val);
+				return ['none', 'xs', 'sm', 'md', 'lg', 'xl'].includes(val);
 			},
 		},
 		shadow: {
@@ -55,6 +59,7 @@ export default defineComponent({
 	},
 	setup(props) {
 		const classList = computed(() => {
+			const nonTextClass = props.isText ? '' : 'btn ';
 			const buttonSize = `btn-${props.size} `;
 			const shadow = props.shadow ? 'shadow ' : '';
 			const shadowColor = props.shadow ? `shadow-${props.shadowColor} ` : '';
@@ -62,7 +67,7 @@ export default defineComponent({
 			const fontSize = `font-${props.fontSize} `;
 			const fontWeight = `font-${props.fontWeight} `;
 			const bgColor = `bg-${props.bgColor}`;
-			return `${buttonSize}${shadow}${shadowColor}${textColor}${fontSize}${fontWeight}${bgColor}`.trim();
+			return `${nonTextClass}${buttonSize}${shadow}${shadowColor}${textColor}${fontSize}${fontWeight}${bgColor}`.trim();
 		});
 
 		return {
@@ -73,7 +78,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-button {
+.btn {
 	height: 42px;
 	background: var(--clr-dark);
 	color: white;
@@ -83,9 +88,7 @@ button {
 	&:hover {
 		background-color: var(--clr-primary-dark);
 	}
-}
 
-.btn {
 	&-xs {
 		width: 80px;
 	}
