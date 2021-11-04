@@ -11,65 +11,145 @@ generator client {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
+  id Int @id @default(autoincrement())
+
+  // properties
   email    String @unique
   password String
 
+  // outbound relations
+  bids         Bid[]
+  wallets      Wallet[]
+  roles        UserRole[]
+  won_auctions Auction[]
+
+  // inbound relations
+
+  // autogen columns
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  bids    Bid[]
-  wallets Wallet[]
-  roles   UserRole[]
 }
 
 model UserRole {
-  id          Int    @id @default(autoincrement())
-  name        String
+  id Int @id @default(autoincrement())
+
+  // properties
+  name        String @unique
   description String
-  users       User[]
+
+  // outbound relations
+  users User[]
+
+  // inbound relations
+  // autogen columns
 }
 
 model Hero {
-  id          Int    @id @default(autoincrement())
+  id Int @id @default(autoincrement())
+
+  // properties
   title       String
   description String
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
+  // outbound relations
+  // inbound relations
 
-model Bid {
-  id        Int     @id @default(autoincrement())
-  bidder    User    @relation(fields: [bidderId], references: id)
-  bidderId  Int
-  product   Product @relation(fields: [productId], references: [id])
-  productId Int
-  price     Decimal
-
+  // autogen columns
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Product {
-  id               Int       @id @default(autoincrement())
+  id Int @id @default(autoincrement())
+
+  // properties
+
+  // outbound relations
+  Bid    Bid[]
+  assset Asset[]
+
+  // inbound relations
+
+  // autogen columns
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+}
+
+model Auction {
+  id Int @id @default(autoincrement())
+
+  // properties
   auctionStartedAt DateTime?
   auctionEndAt     DateTime?
 
+  // outbound relations
+  bids Bid[]
+
+  // inbound relations
+  winner User? @relation(fields: [userId], references: [id])
+  userId Int?
+
+
+  // autogen columns
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Bid {
+  id Int @id @default(autoincrement())
+
+  // properties
+  price Decimal
+
+  // outbound relations
+
+  // inbound relations
+  bidder    User     @relation(fields: [bidderId], references: id)
+  bidderId  Int
+  product   Product  @relation(fields: [productId], references: [id])
+  productId Int
+  Auction   Auction? @relation(fields: [auctionId], references: [id])
+  auctionId Int?
+
+  // autogen columns
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  Bid Bid[]
 }
 
 model Wallet {
-  id     Int    @id @default(autoincrement())
-  hash   String @unique
-  user   User   @relation(fields: [userId], references: [id])
+  id Int @id @default(autoincrement())
+
+  // properties
+  hash String @unique
+
+  // outbound relations
+
+  // inbound relations
+  user   User @relation(fields: [userId], references: [id])
   userId Int
 
+  // autogen columns
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Asset {
+  id Int @id @default(autoincrement())
+
+  // properties
+  folderPath String   @default("")
+  name       String
+  size       Int
+  type       String
+  // outbound relations
+  // inbound relations
+  // autogen columns
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  Product    Product? @relation(fields: [productId], references: [id])
+  productId  Int?
 }
 
 //// OLD ////

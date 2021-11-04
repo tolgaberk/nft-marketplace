@@ -4,5 +4,12 @@
 			"path": "."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"[typescript]": {
+			"editor.codeActionsOnSave": {
+				"source.organizeImports": true,
+				"source.fixAll": true
+			}
+		}
+	}
 }
