@@ -3,4 +3,5 @@ export interface IConfiguration {
 	backend_port: number;
 	bcrypt_salt_rounds: number;
 	jwt_secret: string;
+	file_system: 'aws' | 'local';
 }

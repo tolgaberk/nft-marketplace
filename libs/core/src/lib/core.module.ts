@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { configuration } from './config/configuration';
 import { validationSchema } from './config/validation';
 
@@ -13,6 +13,6 @@ import { validationSchema } from './config/validation';
 	],
 	controllers: [],
 	providers: [],
-	exports: [],
+	exports: [ConfigService],
 })
 export class CoreModule {}
