@@ -9,14 +9,19 @@ body {
 }
 
 body {
-	background-color: #1d1e22;
-	overflow: hidden;
+	background-color: #f2f5fa;
+	/* overflow: hidden; */
 }
+
+body.dark {
+	background-color: #1d1e22;
+}
+
 #app {
 	font-family: Gilroy, Avenir, Helvetica, Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	text-align: center;
+	/* text-align: center; */
 	color: #2c3e50;
 }
 

@@ -11,6 +11,9 @@ body {
 
 	--clr-gs-white: #ffffff;
 	--clr-gs-white: #ffffff;
+
+	--clr-light-primary: #6236ff;
+	--clr-dark-primary: #cbff17;
 }
 
 body.dark {
