@@ -38,27 +38,47 @@
 			</template>
 		</BaseBanner>
 	</div>
+
+	<div class="p-16 space-x-4 flex">
+		<BaseCard isFixedHeight isPriceShadowed />
+		<BaseCard />
+	</div>
+
+	<div class="py-16">
+		<TheFooter />
+	</div>
+
+	<div class="py-16">
+		<BaseToaster text="We use cookies for better service." buttonText="Accept" type="primary" />
+	</div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import BaseBanner from '../components/Base/BaseBanner.vue';
-import BrushIcon from '../components/Icons/BrushIcon.vue'
-
 import BaseButton from '../components/Base/BaseButton.vue';
+import BaseBanner from '../components/Base/BaseBanner.vue';
+import BaseCard from '../components/Base/BaseCard.vue';
+
 import NewsletterButton from '../components/Buttons/NewsletterButton.vue';
+
+import BrushIcon from '../components/Icons/BrushIcon.vue'
 import TransactionIcon from '../components/Icons/TransactionIcon.vue';
 import PriceUpIcon from '../components/Icons/PriceUpIcon.vue';
+import TheFooter from '../components/Layout/TheFooter.vue';
+import BaseToaster from '../components/Base/BaseToaster.vue';
 
 export default defineComponent({
 	components: {
-		BaseButton,
-		BrushIcon,
-		NewsletterButton,
-		BaseBanner,
-		TransactionIcon,
-		PriceUpIcon,
-	},
+    BaseButton,
+    BaseBanner,
+    BaseCard,
+    NewsletterButton,
+    BrushIcon,
+    TransactionIcon,
+    PriceUpIcon,
+    TheFooter,
+    BaseToaster
+},
 	setup() {
 		return {};
 	},
