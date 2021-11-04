@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { AuthModule } from '@tradist/auth';
 import { CoreModule } from '@tradist/core';
-import { HerosModule } from '../heros/heros.module';
+import { HeroesModule } from '../Heroes/Heroes.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 @Module({
-	imports: [CoreModule, AuthModule, HerosModule],
+	imports: [CoreModule, AuthModule, HeroesModule],
 	controllers: [AppController],
 	providers: [AppService],
 })

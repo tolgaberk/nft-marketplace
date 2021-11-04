@@ -4,7 +4,7 @@ import { CreateHeroDto } from './dto/create-hero.dto';
 import { UpdateHeroDto } from './dto/update-hero.dto';
 
 @Injectable()
-export class HerosService {
+export class HeroesService {
 	constructor(private dataService: DataService) {}
 	create(createHeroDto: CreateHeroDto) {
 		return this.dataService.hero.create({ data: createHeroDto });
