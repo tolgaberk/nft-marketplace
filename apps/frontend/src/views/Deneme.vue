@@ -14,24 +14,74 @@
 		<BaseButton size="xl" fontSize="lg" :shadow="true" :fontWeight="500"
 			>Place a Bid</BaseButton
 		>
-		<BaseButton :fontWeight="600">Login</BaseButton>
+		<BaseButton class="font-semibold">Login</BaseButton>
 		<BaseButton size="sm" fontSize="sm" :shadow="true" :fontWeight="500"
 			>More</BaseButton
 		>
-		<BaseButton size="xs" fontSize="sm" textColor="primary" :fontWeight="500">
-			&#x2192;
-		</BaseButton>
+		<NewsletterButton />
+	</div>
+
+	<div class="mt-16 p-4">
+		<BaseBanner primaryText="75,088" secondaryText="NFTS CREATED">
+			<template #icon>
+				<BrushIcon />
+			</template>
+		</BaseBanner>
+		<BaseBanner primaryText="6,736" secondaryText="TRANSACTIONS">
+			<template #icon>
+				<TransactionIcon />
+			</template>
+		</BaseBanner>
+		<BaseBanner primaryText="$78,428.76" secondaryText="TOTAL SALES">
+			<template #icon>
+				<PriceUpIcon />
+			</template>
+		</BaseBanner>
+	</div>
+
+	<div class="p-16 space-x-4 flex">
+		<BaseCard isFixedHeight isPriceShadowed />
+		<BaseCard />
+	</div>
+
+	<div class="py-16">
+		<TheFooter />
+	</div>
+
+	<div class="py-16">
+		<BaseToaster
+			text="We use cookies for better service."
+			buttonText="Accept"
+			type="primary"
+		/>
 	</div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-
 import BaseButton from '../components/Base/BaseButton.vue';
+import BaseBanner from '../components/Base/BaseBanner.vue';
+import BaseCard from '../components/Base/BaseCard.vue';
+
+import NewsletterButton from '../components/Buttons/NewsletterButton.vue';
+
+import BrushIcon from '../components/Icons/BrushIcon.vue';
+import TransactionIcon from '../components/Icons/TransactionIcon.vue';
+import PriceUpIcon from '../components/Icons/PriceUpIcon.vue';
+import TheFooter from '../components/Layout/TheFooter.vue';
+import BaseToaster from '../components/Base/BaseToaster.vue';
 
 export default defineComponent({
 	components: {
 		BaseButton,
+		BaseBanner,
+		BaseCard,
+		NewsletterButton,
+		BrushIcon,
+		TransactionIcon,
+		PriceUpIcon,
+		TheFooter,
+		BaseToaster,
 	},
 	setup() {
 		return {};

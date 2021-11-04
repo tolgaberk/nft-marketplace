@@ -1,16 +1,30 @@
 @import './fonts.css';
+@import './icon.css';
 @import './variables.css';
 
+html,
 body {
-	background-color: #1d1e22;
-	min-height: 100vh;
-	min-width: 100vw;
-	overflow: hidden;
+	height: 100%;
+	width: 100%;
 }
+
+body {
+	background-color: #f2f5fa;
+	/* overflow: hidden; */
+}
+
+body.dark {
+	background-color: #1d1e22;
+}
+
 #app {
 	font-family: Gilroy, Avenir, Helvetica, Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	text-align: center;
+	/* text-align: center; */
 	color: #2c3e50;
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

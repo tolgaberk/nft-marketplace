@@ -7,15 +7,17 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
 
-// TODO: Shadow Stacking context, 192px ve 150pxlik butonlar
-
 export default defineComponent({
 	props: {
+		isText: {
+			type: Boolean,
+			default: false,
+		},
 		size: {
 			type: String,
 			default: 'md',
 			validator: (val: string) => {
-				return ['xs', 'sm', 'md', 'lg', 'xl'].includes(val);
+				return ['none', 'xs', 'sm', 'md', 'lg', 'xl'].includes(val);
 			},
 		},
 		shadow: {
@@ -26,7 +28,7 @@ export default defineComponent({
 			type: String,
 			default: 'transparent',
 			validator: (val: string) => {
-				return val in ['transparent', 'primary'];
+				return ['transparent', 'primary'].includes(val);
 			},
 		},
 		textColor: {
@@ -51,12 +53,13 @@ export default defineComponent({
 			type: String,
 			default: 'black',
 			validator: (val: string) => {
-				return val in ['transparent', 'primary'];
+				return ['transparent', 'primary', 'black'].includes(val);
 			},
 		},
 	},
 	setup(props) {
 		const classList = computed(() => {
+			const nonTextClass = props.isText ? '' : 'btn ';
 			const buttonSize = `btn-${props.size} `;
 			const shadow = props.shadow ? 'shadow ' : '';
 			const shadowColor = props.shadow ? `shadow-${props.shadowColor} ` : '';
@@ -64,7 +67,7 @@ export default defineComponent({
 			const fontSize = `font-${props.fontSize} `;
 			const fontWeight = `font-${props.fontWeight} `;
 			const bgColor = `bg-${props.bgColor}`;
-			return `${buttonSize}${shadow}${shadowColor}${textColor}${fontSize}${fontWeight}${bgColor}`.trim();
+			return `${nonTextClass}${buttonSize}${shadow}${shadowColor}${textColor}${fontSize}${fontWeight}${bgColor}`.trim();
 		});
 
 		return {
@@ -74,19 +77,18 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
-button {
-	height: 42px;
-	background: var(--black);
-	color: white;
-	border: 1px solid var(--primary-color);
-	transition: background-color 0.3s ease-out;
-	&:hover {
-		background-color: var(--primary-color-hover);
-	}
-}
-
+<style lang="scss">
 .btn {
+	height: 42px;
+	background: var(--clr-dark);
+	color: white;
+	border: 1px solid var(--clr-primary);
+	transition: background-color 0.3s ease-out;
+	font-weight: 500;
+	&:hover {
+		background-color: var(--clr-primary-dark);
+	}
+
 	&-xs {
 		width: 80px;
 	}
@@ -161,7 +163,7 @@ button {
 		width: 100%;
 		height: 100%;
 		z-index: -1;
-		border: 1px solid var(--primary-color);
+		border: 1px solid var(--clr-primary);
 	}
 
 	&-transparent {
@@ -172,32 +174,36 @@ button {
 
 	&-primary {
 		&::after {
-			background-color: var(--primary-color);
+			background-color: var(--clr-primary);
 		}
 	}
 }
 
 .text {
 	&-white {
-		color: var(--white);
+		color: var(--clr-white);
 	}
 
 	&-black {
-		color: var(--black);
+		color: var(--clr-dark);
 	}
 
 	&-primary {
-		color: var(--primary-color);
+		color: var(--clr-primary);
 	}
 }
 
 .bg {
-	&-transpatern {
+	&-transparent {
 		background-color: transparent;
 	}
 
 	&-primary {
-		background-color: var(--primary-color);
+		background-color: var(--clr-primary);
+	}
+
+	&-black {
+		background-color: var(--clr-dark);
 	}
 }
 </style>
