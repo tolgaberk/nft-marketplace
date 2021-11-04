@@ -139,17 +139,17 @@ model Asset {
   id Int @id @default(autoincrement())
 
   // properties
-  folderPath String   @default("")
-  name       String
-  size       Int
-  type       String
+  folder    String   @default("")
+  name      String
+  size      Int
+  type      String
   // outbound relations
   // inbound relations
   // autogen columns
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  Product    Product? @relation(fields: [productId], references: [id])
-  productId  Int?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Product   Product? @relation(fields: [productId], references: [id])
+  productId Int?
 }
 
 //// OLD ////
