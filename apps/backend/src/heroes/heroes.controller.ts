@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { CreateHeroDto } from './dto/create-hero.dto';
 import { UpdateHeroDto } from './dto/update-hero.dto';
-import { HeroesService } from './Heroes.service';
+import { HeroesService } from './heroes.service';
 
 @Controller('Heroes')
 export class HeroesController {

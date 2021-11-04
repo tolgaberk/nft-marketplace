@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { DataModule } from '@tradist/data';
-import { HeroesController } from './Heroes.controller';
-import { HeroesService } from './Heroes.service';
+import { HeroesController } from './heroes.controller';
+import { HeroesService } from './heroes.service';
 
 @Module({
 	controllers: [HeroesController],

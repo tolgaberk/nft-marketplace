@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { DataModule, DataService } from '@tradist/data';
-import { HeroesService } from './Heroes.service';
+import { HeroesService } from './heroes.service';
 
 describe('HeroesService', () => {
 	let service: HeroesService;
