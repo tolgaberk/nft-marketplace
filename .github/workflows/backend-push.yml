@@ -1,0 +1,58 @@
+name: Build and unit tests
+on: push
+jobs:
+  install_and_cache:
+    name: Install and Cache
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+          cache: "yarn"
+      - run: yarn install
+      - uses: actions/cache@v2
+        id: restore-node_modules
+        with:
+          path: ./node_modules
+          key: ${{ hashFiles('yarn.lock') }}
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: [install_and_cache]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+          cache: "yarn"
+      - uses: actions/cache@v2
+        id: restore-node_modules
+        with:
+          path: ./node_modules
+          key: ${{ hashFiles('yarn.lock') }}
+      - name: Generate .ENV
+        run: |
+          export DATABASE_URL="${{ secrets.TEST_DATABASE_URL }}"
+          export JWT_SECRET="${{ secrets.JWT_SECRET }}"
+          export NODE_ENV="development"
+          envsubst < .env.template > .env
+      - run: yarn nx run backend:build:production
+
+  unit_tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    needs: [install_and_cache]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+          cache: "yarn"
+      - uses: actions/cache@v2
+        id: restore-node_modules
+        with:
+          path: ./node_modules
+          key: ${{ hashFiles('yarn.lock') }}
+      - run: yarn nx run backend:test
