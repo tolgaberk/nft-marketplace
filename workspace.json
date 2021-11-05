@@ -85,7 +85,11 @@
 					}
 				},
 				"version": {
-					"executor": "@jscutlery/semver:version"
+					"executor": "@jscutlery/semver:version",
+					"options": {
+						"push": true,
+						"versionTagPrefix": "${target}@"
+					}
 				},
 				"docker": {
 					"executor": "@nx-tools/nx-docker:build",
