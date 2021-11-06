@@ -41,7 +41,7 @@ jobs:
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
           IMAGE_TAG: tradist-api
         run: |
-          export APP_IMAGE_TAG=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG@$v(cat .api-version)
+          export APP_IMAGE_TAG=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG@v$(cat .api-version)
           docker build -t $APP_IMAGE_TAG -f ./Dockerfile.api .
       - name: AWS Push
         run: |
