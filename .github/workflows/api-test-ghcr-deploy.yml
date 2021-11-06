@@ -14,8 +14,8 @@ jobs:
         uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: "16"
-          cache: "yarn"
+          node-version: '16'
+          cache: 'yarn'
       # This is the a separate action that sets up buildx runner
       - name: Set up Docker Buildx
         id: buildx
@@ -36,19 +36,21 @@ jobs:
           export NODE_ENV="production"
           envsubst < .env.template > .env
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-central-1
+      # - name: Configure AWS credentials
+      #   uses: aws-actions/configure-aws-credentials@v1
+      #   with:
+      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     aws-region: eu-central-1
 
-      - name: Prepare for docker build
+      - name: Prepare for docker build and aws deploy
         id: prep
         run: |
           VERSION=v$(cat .api-version)
           IMAGE_TAG="ghcr.io/tradist-web/api:$VERSION"
           echo ::set-output name=tagged_image::${IMAGE_TAG}
+          echo ::set-output name=version::${VERSION}
+          envsubst < docker-compose.template.yml > docker-compose.yml
 
       - name: Login to ghcr
         uses: docker/login-action@v1
@@ -67,6 +69,20 @@ jobs:
           tags: ${{ steps.prep.outputs.tagged_image }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
+
+      - name: Generate deployment package
+        run: zip deploy.zip docker-compose.yml Dockerrun.aws.json
+
+      - name: Deploy to AWS
+        uses: einaregilsson/beanstalk-deploy@v18
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: tradist-api
+          environment_name: Tradistapi-env
+          version_label: ${{ steps.prep.outputs.version }}
+          region: eu-central-1
+          deployment_package: deploy.zip
 
         # This ugly bit is necessary if you don't want your cache to grow forever
         # till it hits GitHub's limit of 5GB.

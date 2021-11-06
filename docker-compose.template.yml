@@ -1,0 +1,6 @@
+version: '3.8'
+services:
+  api:
+    image: '${IMAGE_TAG}'
+    ports:
+      - '80:3000'
