@@ -1,0 +1,15 @@
+{
+	"AWSEBDockerrunVersion": 1,
+	"Authentication": {
+		"bucket": "tradist-docker",
+		"key": ".dockercfg"
+	},
+	"Image": {
+		"Name": "${IMAGE_TAG}"
+	},
+	"Ports": [
+		{
+			"ContainerPort": "3000"
+		}
+	]
+}

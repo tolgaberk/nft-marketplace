@@ -50,7 +50,7 @@ jobs:
           IMAGE_TAG="ghcr.io/tradist-web/api:$VERSION"
           echo ::set-output name=tagged_image::${IMAGE_TAG}
           echo ::set-output name=version::${VERSION}
-          envsubst < docker-compose.template.yml > docker-compose.yml
+          envsubst < Dockerrun.aws.template.json > Dockerrun.aws.json
 
       - name: Login to ghcr
         uses: docker/login-action@v1
@@ -70,9 +70,6 @@ jobs:
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
 
-      - name: Generate deployment package
-        run: zip deploy.zip docker-compose.yml Dockerrun.aws.json
-
       - name: Deploy to AWS
         uses: einaregilsson/beanstalk-deploy@v18
         with:
@@ -82,7 +79,8 @@ jobs:
           environment_name: Tradistapi-env
           version_label: ${{ steps.prep.outputs.version }}
           region: eu-central-1
-          deployment_package: deploy.zip
+          deployment_package: Dockerrun.aws.json
+          existing_bucket_name: tradist-asset
 
         # This ugly bit is necessary if you don't want your cache to grow forever
         # till it hits GitHub's limit of 5GB.

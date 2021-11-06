@@ -1,7 +1,0 @@
-{
-	"AWSEBDockerrunVersion": "3",
-	"Authentication": {
-		"bucket": "tradist-docker",
-		"key": ".dockercfg"
-	}
-}
