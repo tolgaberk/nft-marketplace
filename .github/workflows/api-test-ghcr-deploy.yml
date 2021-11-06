@@ -45,12 +45,9 @@ jobs:
 
       - name: Prepare for docker build
         id: prep
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: ${{ secrets.API_ECR_REPOSITORY }}
         run: |
           VERSION=v$(cat .api-version)
-          IMAGE_TAG="$ECR_REGISTRY/$ECR_REPOSITORY:$VERSION"
+          IMAGE_TAG="ghcr.io/tradist-web/api:$VERSION"
           echo ::set-output name=tagged_image::${IMAGE_TAG}
 
       - name: Login to ghcr
@@ -65,8 +62,6 @@ jobs:
         with:
           context: .
           builder: ${{ steps.buildx.outputs.name }}
-          registry: ${{ steps.login-ecr.outputs.registry }}
-          repository: ${{ steps.login-ecr.outputs.registry }}/${{ secrets.API_ECR_REPOSITORY }}
           file: ./Dockerfile.api
           push: true
           tags: ${{ steps.prep.outputs.tagged_image }}
