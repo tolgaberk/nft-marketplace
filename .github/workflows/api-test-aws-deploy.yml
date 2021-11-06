@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  dockerize:
+  dockerize_and_push:
     runs-on: ubuntu-latest
     steps:
       - name: Prepare Environment
@@ -47,7 +47,14 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
-      - name: Docker  Build and push
+      - name: Prepare for docker build
+        id: prep
+        run: |
+          VERSION=$(cat .api-version)
+          IMAGE_TAG"$ECR_REGISTRY/$ECR_REPOSITORY:$VERSION"
+          echo ::set-output name=tagged_image::${IMAGE_TAG}
+
+      - name: Docker Build and push
         uses: docker/build-push-action@v2
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
@@ -57,7 +64,7 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           file: ./Dockerfile.api
           push: true
-          tags: "$ECR_REGISTRY/$ECR_REPOSITORY:v$(cat .api-version)"
+          tags: ${{ steps.prep.outputs.tagged_image }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
 
