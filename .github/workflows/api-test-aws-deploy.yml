@@ -1,0 +1,48 @@
+name: API TEST DEPLOY
+on:
+  push:
+    branches:
+      - live-test
+
+  workflow_dispatch:
+
+jobs:
+  dockerize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prepare Environment
+        uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+          cache: "yarn"
+
+      - name: Generate .ENV
+        run: |
+          export DATABASE_URL="${{ secrets.TEST_DATABASE_URL }}"
+          export JWT_SECRET="${{ secrets.JWT_SECRET }}"
+          export NODE_ENV="production"
+          envsubst < .env.template > .env
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-central-1
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Docker Build
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+          IMAGE_TAG: tradist-api
+        run: |
+          export APP_IMAGE_TAG=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG@$v(cat .api-version)
+          docker build -t $APP_IMAGE_TAG -f ./Dockerfile.api .
+      - name: AWS Push
+        run: |
+          docker push $APP_IMAGE_TAG
