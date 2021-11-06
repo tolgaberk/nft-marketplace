@@ -62,6 +62,8 @@ jobs:
         with:
           context: .
           builder: ${{ steps.buildx.outputs.name }}
+          registry: ${{ steps.login-ecr.outputs.registry }}
+          repository: ${{ steps.login-ecr.outputs.registry }}/${{ secrets.API_ECR_REPOSITORY }}
           file: ./Dockerfile.api
           push: true
           tags: ${{ steps.prep.outputs.tagged_image }}
