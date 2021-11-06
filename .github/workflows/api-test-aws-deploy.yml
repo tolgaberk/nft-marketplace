@@ -35,13 +35,11 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
-      - name: Docker Build
+      - name: Docker Build and AWS Push
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ${{ secrets.API_ECR_REPOSITORY }}
         run: |
           export APP_IMAGE_TAG="$ECR_REGISTRY/$ECR_REPOSITORY:v$(cat .api-version)"
           docker build -t $APP_IMAGE_TAG -f ./Dockerfile.api .
-      - name: AWS Push
-        run: |
           docker push $APP_IMAGE_TAG
