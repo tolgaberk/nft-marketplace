@@ -51,7 +51,7 @@ jobs:
         run: yarn prisma generate
 
       - name: Build
-      - run: yarn nx run backend:build:production
+        run: yarn nx run backend:build:production
 
   unit_tests:
     name: Unit Tests
