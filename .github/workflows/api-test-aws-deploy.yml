@@ -51,7 +51,7 @@ jobs:
         id: prep
         run: |
           VERSION=$(cat .api-version)
-          IMAGE_TAG"$ECR_REGISTRY/$ECR_REPOSITORY:$VERSION"
+          IMAGE_TAG="$ECR_REGISTRY/$ECR_REPOSITORY:$VERSION"
           echo ::set-output name=tagged_image::${IMAGE_TAG}
 
       - name: Docker Build and push
