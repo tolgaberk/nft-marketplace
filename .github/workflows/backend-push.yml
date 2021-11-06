@@ -1,5 +1,10 @@
 name: Build and unit tests
-on: push
+on:
+  push:
+    paths:
+      - "apps/backend/**"
+      - "libs/**"
+
 jobs:
   install_and_cache:
     name: Install and Cache
@@ -34,12 +39,18 @@ jobs:
         with:
           path: ./node_modules
           key: ${{ hashFiles('yarn.lock') }}
+
       - name: Generate .ENV
         run: |
           export DATABASE_URL="${{ secrets.TEST_DATABASE_URL }}"
           export JWT_SECRET="${{ secrets.JWT_SECRET }}"
           export NODE_ENV="development"
           envsubst < .env.template > .env
+
+      - name: Prisma Generate
+        run: yarn prisma generate
+
+      - name: Build
       - run: yarn nx run backend:build:production
 
   unit_tests:
