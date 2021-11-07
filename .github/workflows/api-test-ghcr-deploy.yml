@@ -113,7 +113,7 @@ jobs:
           TAG: ${{ needs.build.outputs.tag }}
           TIMESTAMP: ${{ steps.get_timestamp.outputs.timestamp }}
       - name: Deploy to EB
-        uses: einaregilsson/beanstalk-deploy@v11
+        uses: einaregilsson/beanstalk-deploy@v18
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -122,6 +122,7 @@ jobs:
           version_label: ${{ steps.get_label.outputs.label }}
           region: eu-central-1
           deployment_package: deploy.zip
+          existing_bucket_name: tradist-docker
 
   # dockerize_push:
   #   runs-on: ubuntu-latest
