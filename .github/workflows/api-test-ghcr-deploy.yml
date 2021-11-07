@@ -40,6 +40,8 @@ jobs:
         run: |
           export DATABASE_URL="${{ secrets.TEST_DATABASE_URL }}"
           export JWT_SECRET="${{ secrets.JWT_SECRET }}"
+          export FILE_SYSTEM="aws"
+          export PORT=${{ secrets.API_PORT }}
           export NODE_ENV="production"
           envsubst < .env.template > .env
 
