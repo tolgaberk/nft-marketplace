@@ -11,13 +11,13 @@
 		>
 			View Item
 		</BaseButton>
-		<BaseButton size="xl" fontSize="lg" :shadow="true" :fontWeight="500"
-			>Place a Bid</BaseButton
-		>
+		<BaseButton size="xl" fontSize="lg" :shadow="true" :fontWeight="500">
+			Place a Bid
+		</BaseButton>
 		<BaseButton class="font-semibold">Login</BaseButton>
-		<BaseButton size="sm" fontSize="sm" :shadow="true" :fontWeight="500"
-			>More</BaseButton
-		>
+		<BaseButton size="sm" fontSize="sm" :shadow="true" :fontWeight="500">
+			More
+		</BaseButton>
 		<NewsletterButton />
 	</div>
 
@@ -55,6 +55,10 @@
 			type="primary"
 		/>
 	</div>
+
+	<div class="py-16">
+		<TheNavbar />
+	</div>
 </template>
 
 <script lang="ts">
@@ -70,6 +74,7 @@ import TransactionIcon from '../components/Icons/TransactionIcon.vue';
 import PriceUpIcon from '../components/Icons/PriceUpIcon.vue';
 import TheFooter from '../components/Layout/TheFooter.vue';
 import BaseToaster from '../components/Base/BaseToaster.vue';
+import TheNavbar from '../components/Layout/TheNavbar.vue';
 
 export default defineComponent({
 	components: {
@@ -82,6 +87,7 @@ export default defineComponent({
 		PriceUpIcon,
 		TheFooter,
 		BaseToaster,
+		TheNavbar,
 	},
 	setup() {
 		return {};
