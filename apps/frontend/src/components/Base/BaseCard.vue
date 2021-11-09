@@ -1,7 +1,7 @@
 <template>
 	<div class="base-card">
 		<div
-			:class="{ 'base-card__asset--fixed': isFixedHeight }"
+			:class="{ 'base-card__asset--fixed': fixedHeight }"
 			class="base-card__asset"
 		>
 			<img
@@ -42,7 +42,7 @@
 					<span> {{ sellerBadge }} </span>
 				</div>
 			</div>
-			<div v-if="isNewBid" class="base-card__content--new-bid mt-3 mb-3">
+			<div v-if="newBid" class="base-card__content--new-bid mt-3 mb-3">
 				<span class="font-semibold text-xs"> New bid 🔥 </span>
 			</div>
 			<div class="base-card__content--details relative">
@@ -54,7 +54,7 @@
 						{{ assetPriceCurrency }}
 					</span>
 				</div>
-				<div v-if="isPriceShadowed" class="base-card__content--price-shadow">
+				<div v-if="priceShadowed" class="base-card__content--price-shadow">
 					<span class="font-bold text-3xl mr-1">
 						{{ assetPrice }}
 					</span>
@@ -111,7 +111,7 @@ export default defineComponent({
 			type: Number,
 			default: 0,
 		},
-		isNewBid: {
+		newBid: {
 			type: Boolean,
 			default: true,
 		},
@@ -152,11 +152,11 @@ export default defineComponent({
 				return ['Product Design', 'Art', 'NFTSDesign'];
 			},
 		},
-		isPriceShadowed: {
+		priceShadowed: {
 			type: Boolean,
 			default: false,
 		},
-		isFixedHeight: {
+		fixedHeight: {
 			type: Boolean,
 			default: false,
 		},

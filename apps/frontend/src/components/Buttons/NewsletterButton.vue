@@ -1,5 +1,11 @@
 <template>
-	<BaseButton size="xs" fontSize="sm" textColor="primary" :fontWeight="500">
+	<BaseButton
+		size="xs"
+		fontSize="sm"
+		textColor="primary"
+		bgColor="black"
+		:fontWeight="500"
+	>
 		<LeftArrowIcon />
 	</BaseButton>
 </template>

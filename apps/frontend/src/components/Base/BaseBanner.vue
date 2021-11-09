@@ -32,7 +32,7 @@ export default defineComponent({
 	&__text {
 		display: flex;
 		flex-direction: column;
-		justify-content: start;
+		justify-content: flex-start;
 		margin-left: 23px;
 		&--primary {
 			color: var(--clr-dark);

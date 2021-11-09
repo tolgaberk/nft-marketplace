@@ -11,12 +11,12 @@ function toggleTheme() {
 	document.body.classList.remove('dark');
 }
 
-interface IuseThemeReturn {
+interface IUseThemeReturn {
 	isDarkTheme: Ref<boolean>;
 	toggleTheme: () => void;
 }
 
-export function useTheme(): IuseThemeReturn {
+export function useTheme(): IUseThemeReturn {
 	return {
 		isDarkTheme,
 		toggleTheme,
