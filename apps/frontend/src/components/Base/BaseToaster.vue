@@ -32,7 +32,7 @@ export default defineComponent({
 		type: {
 			type: String,
 			validator(val: string) {
-				return ['primary, success, warning, danger'].includes(val);
+				return ['primary', 'success', 'warning', 'danger'].includes(val);
 			},
 		},
 	},
