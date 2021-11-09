@@ -1,8 +1,8 @@
 <template>
 	<footer class="footer">
-		<div class="footer__content grid grid-cols-6">
+		<div class="tradist-container footer__content grid grid-cols-6">
 			<div class="col-span-2">
-				<SmallTradistIcon class="footer__content--tradist-icon" />
+				<TradistIcon class="footer__content--tradist-icon" />
 				<span class="footer__mobile-app--text"> Download App </span>
 				<QrCodeIcon class="footer__mobile-app--qr-code" />
 			</div>
@@ -24,8 +24,7 @@
 			<div class="col-span-2 footer__content--newsletter">
 				<div class="flex justify-between">
 					<h6>Sewsletter</h6>
-					<DarkThemeIcon v-if="isDarkTheme" @click="toggleTheme" />
-					<LightThemeIcon v-else @click="toggleTheme" />
+					<ThemeSwitcher />
 				</div>
 				<span
 					>Subscribe our newsletter to get more free design course and
@@ -38,9 +37,9 @@
 			</div>
 		</div>
 
-		<BaseDivider class="footer__divider" />
+		<BaseDivider class="tradist-container footer__divider" />
 
-		<div class="flex justify-between">
+		<div class="tradist-container flex justify-between">
 			<span class="footer__copyright">
 				Copyright © 2021 tradist. All rights reserved
 			</span>
@@ -64,14 +63,11 @@ import FacebookIcon from '../Icons/FacebookIcon.vue';
 import TwitterIcon from '../Icons/TwitterIcon.vue';
 import YoutubeIcon from '../Icons/YoutubeIcon.vue';
 import BaseDivider from '../Base/BaseDivider.vue';
-import SmallTradistIcon from '../Icons/SmallTradistIcon.vue';
+import TradistIcon from '../Icons/TradistIcon.vue';
 import QrCodeIcon from '../Icons/QrCodeIcon.vue';
-import DarkThemeIcon from '../Icons/DarkThemeIcon.vue';
-import LightThemeIcon from '../Icons/LightThemeIcon.vue';
 import NewsletterButton from '../Buttons/NewsletterButton.vue';
 import BaseInput from '../Base/BaseInput.vue';
-
-import { useTheme } from '../../composables/useTheme';
+import ThemeSwitcher from '../ThemeSwitcher.vue';
 
 export default defineComponent({
 	name: 'TheFooter',
@@ -81,26 +77,22 @@ export default defineComponent({
 		TwitterIcon,
 		YoutubeIcon,
 		BaseDivider,
-		SmallTradistIcon,
+		TradistIcon,
 		QrCodeIcon,
-		DarkThemeIcon,
-		LightThemeIcon,
 		NewsletterButton,
 		BaseInput,
+		ThemeSwitcher,
 	},
 	setup() {
-		const { isDarkTheme, toggleTheme } = useTheme();
-
-		return {
-			isDarkTheme,
-			toggleTheme,
-		};
+		return {};
 	},
 });
 </script>
 
 <style lang="scss" scoped>
 .footer {
+	position: relative;
+	bottom: 0;
 	width: 100%;
 	padding: 0 160px 30px 160px;
 	background-color: #121215;
