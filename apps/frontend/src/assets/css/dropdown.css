@@ -1,0 +1,10 @@
+.dropdown {
+	position: absolute;
+	z-index: 20;
+}
+
+.dropdown__offset {
+	position: fixed;
+	inset: 0;
+	z-index: 10;
+}
