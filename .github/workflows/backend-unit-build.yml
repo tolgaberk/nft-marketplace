@@ -1,6 +1,6 @@
 name: Build and unit tests
 on:
-  push:
+  pull_request:
     paths:
       - "apps/backend/**"
       - "libs/**"
