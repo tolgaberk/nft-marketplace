@@ -1,22 +1,15 @@
 <template>
-	<div id="nav">
-		<router-link to="/">Home</router-link> |
-		<router-link to="/deneme">Deneme</router-link>
-	</div>
+	<TheNavbar />
 	<router-view />
+	<TheFooter />
 </template>
 
-<style lang="scss">
-#nav {
-	padding: 30px;
+<script lang="ts">
+import { defineComponent } from 'vue';
+import TheFooter from './components/Layout/TheFooter.vue';
+import TheNavbar from './components/Layout/TheNavbar.vue';
 
-	a {
-		font-weight: bold;
-		color: #2c3e50;
-
-		&.router-link-exact-active {
-			color: #42b983;
-		}
-	}
-}
-</style>
+export default defineComponent({
+	components: { TheFooter, TheNavbar },
+});
+</script>
