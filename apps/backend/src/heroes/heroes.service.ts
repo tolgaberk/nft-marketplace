@@ -11,7 +11,7 @@ export class HeroesService {
 	}
 
 	findAll() {
-		return this.dataService.hero.findMany();
+		return this.dataService.hero.findMany({ include: { product: true } });
 	}
 
 	findOne(id: number) {

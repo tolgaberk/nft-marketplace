@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import * as dotenv from 'dotenv';
 import { HeroSeeder } from './seeders/HeroSeeder';
+import { ProductSeeder } from './seeders/ProductSeeder';
 import { Seeder } from './seeders/seeder.types';
 import { UserRoleSeeder } from './seeders/UserRoleSeeder';
 import { UserSeeder } from './seeders/UserSeeder';
@@ -9,6 +10,7 @@ const client = new PrismaClient();
 const seeders: Seeder<any>[] = [
 	new UserRoleSeeder(client),
 	new UserSeeder(client),
+	new ProductSeeder(client),
 	new HeroSeeder(client),
 ];
 

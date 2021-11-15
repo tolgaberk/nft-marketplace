@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
@@ -52,7 +52,10 @@ model Hero {
   description String
 
   // outbound relations
+
   // inbound relations
+  product   Product? @relation(fields: [productId], references: [id])
+  productId Int?
 
   // autogen columns
   createdAt DateTime @default(now())
@@ -63,10 +66,13 @@ model Product {
   id Int @id @default(autoincrement())
 
   // properties
+  price Decimal?
 
   // outbound relations
-  Bid    Bid[]
-  assset Asset[]
+  bids  Bid[]
+  asset Asset?
+
+  heroes Hero[]
 
   // inbound relations
 
@@ -147,8 +153,8 @@ model Asset {
   // outbound relations
 
   // inbound relations
-  Product   Product? @relation(fields: [productId], references: [id])
-  productId Int?
+  Product   Product @relation(fields: [productId], references: [id], map: "Asset_productId_fkey")
+  productId Int     @unique
 
   // autogen columns
   createdAt DateTime @default(now())
