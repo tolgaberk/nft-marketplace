@@ -6,18 +6,18 @@
 		bgColor="black"
 		:fontWeight="500"
 	>
-		<LeftArrowIcon />
+		<NewsletterArrowIcon />
 	</BaseButton>
 </template>
 
 <script lang="ts">
 import BaseButton from '../Base/BaseButton.vue';
-import LeftArrowIcon from '../Icons/LeftArrowIcon.vue';
+import NewsletterArrowIcon from '../Icons/NewsletterArrowIcon.vue';
 
 export default {
 	components: {
 		BaseButton,
-		LeftArrowIcon,
+		NewsletterArrowIcon,
 	},
 };
 </script>
