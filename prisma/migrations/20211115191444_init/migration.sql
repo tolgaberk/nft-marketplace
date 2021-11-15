@@ -14,7 +14,7 @@ CREATE TABLE `User` (
 CREATE TABLE `UserRole` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
-    `description` VARCHAR(191) NOT NULL,
+    `description` VARCHAR(500) NOT NULL,
 
     UNIQUE INDEX `UserRole_name_key`(`name`),
     PRIMARY KEY (`id`)
@@ -25,7 +25,7 @@ CREATE TABLE `Hero` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `title` VARCHAR(191) NOT NULL,
     `description` VARCHAR(191) NOT NULL,
-    `productId` INTEGER,
+    `productId` INTEGER NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
 
@@ -35,7 +35,8 @@ CREATE TABLE `Hero` (
 -- CreateTable
 CREATE TABLE `Product` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `price` DECIMAL(65, 30),
+    `price` DECIMAL(65, 30) NULL,
+    `userId` INTEGER NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
 
@@ -45,9 +46,9 @@ CREATE TABLE `Product` (
 -- CreateTable
 CREATE TABLE `Auction` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `auctionStartedAt` DATETIME(3),
-    `auctionEndAt` DATETIME(3),
-    `userId` INTEGER,
+    `auctionStartedAt` DATETIME(3) NULL,
+    `auctionEndAt` DATETIME(3) NULL,
+    `userId` INTEGER NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
 
@@ -58,9 +59,10 @@ CREATE TABLE `Auction` (
 CREATE TABLE `Bid` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `price` DECIMAL(65, 30) NOT NULL,
+    `endDate` DATETIME(3) NULL,
     `bidderId` INTEGER NOT NULL,
     `productId` INTEGER NOT NULL,
-    `auctionId` INTEGER,
+    `auctionId` INTEGER NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
 
@@ -105,6 +107,9 @@ CREATE TABLE `_UserToUserRole` (
 
 -- AddForeignKey
 ALTER TABLE `Hero` ADD CONSTRAINT `Hero_productId_fkey` FOREIGN KEY (`productId`) REFERENCES `Product`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Product` ADD CONSTRAINT `Product_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Auction` ADD CONSTRAINT `Auction_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;

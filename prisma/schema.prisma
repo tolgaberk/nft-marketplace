@@ -26,8 +26,9 @@ model User {
   // inbound relations
 
   // autogen columns
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Product   Product[]
 }
 
 model UserRole {
@@ -35,7 +36,7 @@ model UserRole {
 
   // properties
   name        String @unique
-  description String
+  description String @db.VarChar(500)
 
   // outbound relations
   users User[]
@@ -75,6 +76,8 @@ model Product {
   heroes Hero[]
 
   // inbound relations
+  creator User @relation(fields: [userId], references: [id])
+  userId  Int
 
   // autogen columns
   createdAt DateTime @default(now())
@@ -106,7 +109,8 @@ model Bid {
   id Int @id @default(autoincrement())
 
   // properties
-  price Decimal
+  price   Decimal
+  endDate DateTime?
 
   // outbound relations
 
