@@ -1,23 +1,25 @@
 import { Prisma } from '@prisma/client';
 import { hashSync } from 'bcrypt';
 import { Role } from '../../libs/auth/src/lib/roles/role.enum';
+import { getArray } from './helpers';
 import { Seeder } from './seeder.types';
 type CreateUser = Pick<Prisma.UserCreateInput, 'email' | 'password' | 'roles'>;
 
 export class UserSeeder extends Seeder<CreateUser> {
 	seeder_name = 'User';
 	constructData(): CreateUser[] {
+		const dummyUsers = getArray(10).map((usr, idx) => ({
+			email: `user${idx}@test.com`,
+			password: `user${idx}`,
+			roles: { connect: [{ name: Role.User }] },
+		}));
 		const users = <CreateUser[]>[
 			{
 				email: 'admin@test.com',
 				password: 'admin',
 				roles: { connect: [{ name: Role.Admin }] },
 			},
-			{
-				email: 'user@test.com',
-				password: 'user',
-				roles: { connect: [{ name: Role.User }] },
-			},
+			...dummyUsers,
 		];
 		return users.map(this.hashUserPass);
 	}

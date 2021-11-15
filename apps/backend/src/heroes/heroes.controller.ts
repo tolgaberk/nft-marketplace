@@ -10,6 +10,7 @@ import {
 import { CreateHeroDto } from './dto/create-hero.dto';
 import { UpdateHeroDto } from './dto/update-hero.dto';
 import { HeroesService } from './heroes.service';
+import { GetHeroResponse } from './interfaces/get-hero';
 
 @Controller('heroes')
 export class HeroesController {
@@ -21,7 +22,7 @@ export class HeroesController {
 	}
 
 	@Get()
-	findAll() {
+	findAll(): Promise<GetHeroResponse[]> {
 		return this.heroesService.findAll();
 	}
 

@@ -26,7 +26,7 @@
 		},
 		"backend": {
 			"root": "apps/backend",
-			"sourceRoot": "apps/backend/src",
+			"sourceRoot": "apps/backend/",
 			"projectType": "application",
 			"targets": {
 				"build": {
@@ -36,7 +36,7 @@
 						"outputPath": "dist/apps/backend",
 						"main": "apps/backend/src/main.ts",
 						"tsConfig": "apps/backend/tsconfig.app.json",
-						"assets": ["apps/backend/src/assets"]
+						"assets": ["apps/backend/src/../public"]
 					},
 					"configurations": {
 						"production": {
@@ -47,6 +47,17 @@
 								{
 									"replace": "apps/backend/src/environments/environment.ts",
 									"with": "apps/backend/src/environments/environment.prod.ts"
+								}
+							]
+						},
+						"test": {
+							"optimization": false,
+							"extractLicenses": true,
+							"inspect": false,
+							"fileReplacements": [
+								{
+									"replace": "apps/backend/src/environments/environment.ts",
+									"with": "libs/core/src/lib/config/configuration.ts"
 								}
 							]
 						}
@@ -74,7 +85,11 @@
 					}
 				},
 				"version": {
-					"executor": "@jscutlery/semver:version"
+					"executor": "@jscutlery/semver:version",
+					"options": {
+						"push": true,
+						"versionTagPrefix": "${target}@"
+					}
 				}
 			},
 			"tags": []

@@ -15,7 +15,7 @@ async function bootstrap() {
 	const globalPrefix = 'api';
 	app.setGlobalPrefix(globalPrefix);
 
-	const port = config.get('BACKEND_PORT');
+	const port = config.get('PORT') || config.get('BACKEND_PORT');
 
 	await app.listen(port, () => {
 		Logger.log('Listening at http://localhost:' + port + '/' + globalPrefix);

@@ -10,7 +10,7 @@ import { PasswordService } from './password.service';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
 @Module({
-	imports: [CoreModule, DataModule, PassportModule, registerJWTModule()],
+	imports: [DataModule, PassportModule, registerJWTModule()],
 	controllers: [AuthController],
 	providers: [AuthService, LocalStrategy, JwtStrategy, PasswordService],
 	exports: [AuthService],
