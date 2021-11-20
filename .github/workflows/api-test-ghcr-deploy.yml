@@ -4,7 +4,7 @@ on:
     branches:
       - live-test
     paths:
-      - "./.api-version"
+      - './.api-version'
 
   workflow_dispatch:
 
