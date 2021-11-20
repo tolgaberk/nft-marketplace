@@ -118,7 +118,7 @@
 		"seed": "ts-node ./prisma/seed.ts"
 	},
 	"lint-staged": {
-		"*.{js,json,css,scss,md,ts,html,graphql}": [
+		"*.{js,json,css,scss,md,ts,html,graphql,vue}": [
 			"yarn format --uncommitted"
 		]
 	},
