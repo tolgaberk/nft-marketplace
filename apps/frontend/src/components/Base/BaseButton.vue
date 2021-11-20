@@ -33,7 +33,7 @@ export default defineComponent({
 		},
 		textColor: {
 			type: String,
-			default: 'white',
+			default: 'theme',
 		},
 		fontSize: {
 			type: String,
@@ -51,9 +51,9 @@ export default defineComponent({
 		},
 		bgColor: {
 			type: String,
-			default: 'black',
+			default: 'theme',
 			validator: (val: string) => {
-				return ['transparent', 'primary', 'black'].includes(val);
+				return ['transparent', 'primary', 'black', 'theme'].includes(val);
 			},
 		},
 	},
@@ -77,7 +77,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .btn {
 	height: 42px;
 	background: var(--clr-dark);
@@ -191,6 +191,10 @@ export default defineComponent({
 	&-primary {
 		color: var(--clr-primary);
 	}
+
+	&-theme {
+		color: var(--clr-dark);
+	}
 }
 
 .bg {
@@ -204,6 +208,20 @@ export default defineComponent({
 
 	&-black {
 		background-color: var(--clr-dark);
+	}
+
+	&-theme {
+		background-color: var(--clr-white);
+	}
+}
+
+.dark {
+	& .bg-theme {
+		background-color: var(--clr-dark);
+	}
+
+	& .text-theme {
+		color: var(--clr-white);
 	}
 }
 </style>

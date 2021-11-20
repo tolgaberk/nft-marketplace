@@ -1,0 +1,71 @@
+name: Build and unit tests
+on:
+  pull_request:
+    paths:
+      - 'apps/backend/**'
+      - 'libs/**'
+
+jobs:
+  install_and_cache:
+    name: Install and Cache
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+          cache: 'yarn'
+      - uses: actions/cache@v2
+        id: restore-node_modules
+        with:
+          path: ./node_modules
+          key: ${{ hashFiles('yarn.lock') }}
+      - name: Install deps
+        if: steps.restore-node_modules.outputs.cache-hit != 'true'
+        run: yarn install
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: [install_and_cache]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+          cache: 'yarn'
+      - uses: actions/cache@v2
+        id: restore-node_modules
+        with:
+          path: ./node_modules
+          key: ${{ hashFiles('yarn.lock') }}
+
+      - name: Generate .ENV
+        run: |
+          export DATABASE_URL="${{ secrets.TEST_DATABASE_URL }}"
+          export JWT_SECRET="${{ secrets.JWT_SECRET }}"
+          export NODE_ENV="development"
+          envsubst < .env.template > .env
+
+      - name: Prisma Generate
+        run: yarn prisma generate
+
+      - name: Build
+        run: yarn nx run backend:build:production
+
+  unit_tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    needs: [install_and_cache, build]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+          cache: 'yarn'
+      - uses: actions/cache@v2
+        id: restore-node_modules
+        with:
+          path: ./node_modules
+          key: ${{ hashFiles('yarn.lock') }}
+      - run: yarn nx run backend:test

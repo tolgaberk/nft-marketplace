@@ -11,13 +11,13 @@
 		>
 			View Item
 		</BaseButton>
-		<BaseButton size="xl" fontSize="lg" :shadow="true" :fontWeight="500"
-			>Place a Bid</BaseButton
-		>
+		<BaseButton size="xl" fontSize="lg" :shadow="true" :fontWeight="500">
+			Place a Bid
+		</BaseButton>
 		<BaseButton class="font-semibold">Login</BaseButton>
-		<BaseButton size="sm" fontSize="sm" :shadow="true" :fontWeight="500"
-			>More</BaseButton
-		>
+		<BaseButton size="sm" fontSize="sm" :shadow="true" :fontWeight="500">
+			More
+		</BaseButton>
 		<NewsletterButton />
 	</div>
 
@@ -49,7 +49,15 @@
 	</div>
 
 	<div class="py-16">
-		<BaseToaster text="We use cookies for better service." buttonText="Accept" type="primary" />
+		<BaseToaster
+			text="We use cookies for better service."
+			buttonText="Accept"
+			type="primary"
+		/>
+	</div>
+
+	<div class="py-16">
+		<TheNavbar />
 	</div>
 </template>
 
@@ -61,24 +69,26 @@ import BaseCard from '../components/Base/BaseCard.vue';
 
 import NewsletterButton from '../components/Buttons/NewsletterButton.vue';
 
-import BrushIcon from '../components/Icons/BrushIcon.vue'
+import BrushIcon from '../components/Icons/BrushIcon.vue';
 import TransactionIcon from '../components/Icons/TransactionIcon.vue';
 import PriceUpIcon from '../components/Icons/PriceUpIcon.vue';
 import TheFooter from '../components/Layout/TheFooter.vue';
 import BaseToaster from '../components/Base/BaseToaster.vue';
+import TheNavbar from '../components/Layout/TheNavbar.vue';
 
 export default defineComponent({
 	components: {
-    BaseButton,
-    BaseBanner,
-    BaseCard,
-    NewsletterButton,
-    BrushIcon,
-    TransactionIcon,
-    PriceUpIcon,
-    TheFooter,
-    BaseToaster
-},
+		BaseButton,
+		BaseBanner,
+		BaseCard,
+		NewsletterButton,
+		BrushIcon,
+		TransactionIcon,
+		PriceUpIcon,
+		TheFooter,
+		BaseToaster,
+		TheNavbar,
+	},
 	setup() {
 		return {};
 	},
